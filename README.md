@@ -1,2 +1,2 @@
-# App-de-Streaming
+# App de Streaming
 Atividade da matéria POO 
