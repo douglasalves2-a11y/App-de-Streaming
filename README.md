@@ -1,27 +1,21 @@
-# App de Streaming
-Atividade da matéria POO 
-# 🎧 PHP Streaming — CLI Player
+# 🎧 StreamingPHP — Simulador de Playlist de Mídias
 
-Aplicativo de linha de comando em PHP que simula uma plataforma de streaming com suporte a **Música**, **Podcast** e **Vídeo Curto**, utilizando os pilares da Orientação a Objetos.
+Projeto desenvolvido em PHP como trabalho acadêmico, simulando uma plataforma de streaming com suporte a **músicas**, **podcasts** e **vídeos curtos**, utilizando os princípios de **herança**, **interfaces** e **polimorfismo**.
 
 ---
 
 ## 📁 Estrutura do Projeto
 
 ```
-streaming-php/
-├── src/
-│   ├── Interfaces/
-│   │   └── Reproduzivel.php    # Interface com método reproduzir()
-│   ├── Midias/
-│   │   ├── Midia.php           # Classe abstrata base
-│   │   ├── Musica.php          # Herda Midia
-│   │   ├── Podcast.php         # Herda Midia
-│   │   └── VideoCurto.php      # Herda Midia
-│   └── Playlist.php            # Gerencia e reproduz coleção de mídias
-├── autoload.php                # Autoloader manual (sem Composer)
-├── index.php                   # Ponto de entrada / demonstração
-└── README.md
+streaming/
+├── index.php               # Ponto de entrada / demonstração
+└── src/
+    ├── Reproduzivel.php    # Interface principal
+    ├── Midia.php           # Classe abstrata base
+    ├── Musica.php          # Classe filha — Música
+    ├── Podcast.php         # Classe filha — Podcast
+    ├── VideoCurto.php      # Classe filha — Vídeo Curto
+    └── Playlist.php        # Gerenciador de playlist
 ```
 
 ---
@@ -30,23 +24,20 @@ streaming-php/
 
 | Conceito | Onde é usado |
 |---|---|
-| **Classe Abstrata** | `Midia` — define atributos e comportamentos comuns; força subclasses a implementar `getTipo()` e `reproduzir()` |
 | **Interface** | `Reproduzivel` — contrato com o método `reproduzir(): string` |
+| **Classe Abstrata** | `Midia` — atributos e comportamentos comuns a todas as mídias |
 | **Herança** | `Musica`, `Podcast` e `VideoCurto` estendem `Midia` |
-| **Polimorfismo** | `Playlist::reproduzirTodos()` chama `reproduzir()` em cada item sem saber o tipo concreto |
+| **Polimorfismo** | `Playlist::reproduzirTodos()` chama `reproduzir()` em qualquer `Midia` |
 | **`declare(strict_types=1)`** | Em todos os arquivos PHP |
-| **Atributos privados** | Todos os atributos são `private` (com `readonly`) |
-| **Promotor de propriedades** | Usado nos construtores de todas as classes |
-| **Tipagem adequada** | Parâmetros, retornos e propriedades todos tipados |
+| **Atributos privados** | Todos os atributos são `private` |
+| **Property Promotion** | Construtores usam promoção de propriedades (`private string $x`) |
+| **Tipagem adequada** | Todos os parâmetros e retornos são tipados |
 
 ---
 
 ## ▶️ Como Executar
 
-### Pré-requisito
-- PHP **8.1** ou superior
-
-### Rodar
+**Requisito:** PHP 8.1 ou superior.
 
 ```bash
 php index.php
@@ -54,52 +45,33 @@ php index.php
 
 ---
 
-## 📌 Diagrama de Classes (simplificado)
+## 📐 Diagrama de Classes (resumido)
 
 ```
-             «interface»
-            Reproduzivel
-          reproduzir(): string
-                 ▲
-                 |
-          ┌──────┴──────┐
-          │  (abstrata)  │
-          │    Midia     │
-          │─────────────│
-          │ -titulo      │
-          │ -autor       │
-          │ -duracao     │
-          │─────────────│
-          │ getTipo()    │
-          │ reproduzir() │
-          └──────┬───────┘
-        ┌────────┼────────┐
-        ▼        ▼        ▼
-     Musica  Podcast  VideoCurto
-
-
-           Playlist
-          ──────────
-          -midias[]
-          ──────────
-          adicionar()
-          reproduzirTodos()
+«interface»
+Reproduzivel
+  + reproduzir(): string
+       △
+       │
+«abstract»
+Midia (implements Reproduzivel)
+  - titulo: string
+  - autor: string
+  - duracaoSegundos: int
+  + getTipo(): string  «abstract»
+  + reproduzir(): string  «abstract»
+  + getDuracaoFormatada(): string
+    /    |    \
+   /     |     \
+Musica Podcast VideoCurto
 ```
 
 ---
 
-## 👥 Integrantes do Grupo
+## 👥 Integrantes
 
-| # | Nome |
-|---|------|
-| 1 |      |
-| 2 |      |
-| 3 |      |
-| 4 |      |
-| 5 |      |
-
----
-
-## 📄 Licença
-
-Projeto acadêmico — uso educacional.
+- Integrante David Sergio Finoti
+- Integrante Ryan Evaristo
+- Integrante Marco Tulio Reis de Andrande
+- Integrante Dilermando Lourenço
+- Integrante Douglas Henrique
